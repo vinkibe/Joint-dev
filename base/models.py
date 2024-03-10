@@ -1,5 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    name = models.CharField(max_length=100, null=True)
+    email = models.EmailField(unique=True, null=True)
+    bio = models.TextField(null=True)
+
+    avatar = models.ImageField(null=True, default="avatar.svg")
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
 # Create your models here.
 
@@ -25,6 +35,21 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
+
+class CodeSnippet(models.Model):
+    code = models.TextField()
+
+
+# class Note(models.Model):
+#     content = models.TextField()
+#     created = models.DateTimeField(auto_now_add=True)
+
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    file = models.FileField(upload_to='repo/')
+    created = models.DateTimeField(auto_now_add=True)
+
+
     
 
 class Message(models.Model):
@@ -42,4 +67,3 @@ class Message(models.Model):
         return self.body[0:50]
     
 
-        

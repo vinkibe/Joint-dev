@@ -1,0 +1,111 @@
+/* style.css */
+
+
+/* Reset styles */
+
+body,
+h1,
+h2,
+p,
+ul,
+li,
+form {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2d2c3f;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+/* Navigation bar */
+
+.navbar {
+    background-color: #007bff;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+}
+
+
+/* Page content */
+
+.content {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+h1,
+h2 {
+    color: #333;
+}
+
+.documents {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.document {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: calc(25% - 20px);
+    /* 4 columns */
+}
+
+.notes {
+    margin-top: 20px;
+}
+
+.note {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+input[type="text"],
+input[type="file"],
+button[type="button"],
+button[type="submit"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+button[type="button"],
+button[type="submit"] {
+    background-color: #1076e4;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button[type="button"]:hover,
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}

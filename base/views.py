@@ -9,6 +9,7 @@ from .forms import RoomForm, UserForm, MyUserCreationForm, CodeSnippetForm, Docu
 from django.http import JsonResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
+import traceback
 
 # Create your views here.
 
@@ -129,6 +130,18 @@ def code_editor(request):
             return JsonResponse({'output': output})
     return render(request, 'base/code-editor.html', {'form': form})
 
+
+
+def save_code(request):
+    if request.method == 'POST':
+        form = CodeSnippetForm(request.POST)
+        if form.is_valid():
+            code_snippet = form.save()  # Save the code snippet to the database
+            return JsonResponse({'success': True, 'id': code_snippet.id})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        return JsonResponse({'success': False, 'errors': 'Invalid request method'})
 
 def google_meet_auth(request):
     # Generate authorization URL

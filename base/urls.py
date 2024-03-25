@@ -10,6 +10,7 @@ urlpatterns = [
     path('room/<str:id>/', views.room, name='room'),
     path('profile/<str:id>/', views.userProfile, name='user-profile'),
     path('code-editor/', views.code_editor, name='code-editor'),
+    path('save/', views.save_code, name='save_code'), 
     path('join-meet/', views.joinMeeting, name='join-meet'),
     path('google_meet/', views.google_meet_view, name='google_meet_view'),
     path('auth/google_meet/', views.google_meet_auth, name='google_meet_auth'),

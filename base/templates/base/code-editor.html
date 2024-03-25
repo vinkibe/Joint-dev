@@ -122,8 +122,11 @@
         {% csrf_token %}
         <textarea name="code" id="code" cols="80" rows="20">{{ form.instance.code }}</textarea>
         <br>
-        <button type="submit" onclick="saveCode()" class="btn btn--main btn--pill">Execute</button>
+        <button type="submit" onclick="executeCode()">Execute</button>
+        <button type="button" onclick="saveCode()">Save</button>
+        <!-- New button for saving -->
     </form>
+
 
     <div id="output"></div>
 
@@ -141,22 +144,28 @@
 
         function saveCode() {
             var code = editor.getValue();
-            fetch(window.location.href, {
+            // Create a FormData object to send the code data as form data
+            var formData = new FormData();
+            formData.append('code', code);
+
+            fetch('/save/', {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        'code': code
-                    })
+                    body: formData // Use the FormData object as the request body
                 })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("output").innerHTML = data.output.replace(/\n/g, '<br>');
+                    if (data.success) {
+                        alert('Code saved successfully with ID: ' + data.id);
+                    } else {
+                        alert('Error saving code: ' + JSON.stringify(data.errors));
+                    }
                 })
                 .catch(error => console.error('Error:', error));
         }
+
 
         function executeCode() {
             var code = editor.getValue();

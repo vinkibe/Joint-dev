@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 import traceback
+import os
 
 # Create your views here.
 
@@ -109,6 +110,7 @@ def room(request, id):
         }
     return render(request, 'base/room.html', context)
 
+@login_required(login_url='login')
 def code_editor(request):
     form = CodeSnippetForm(request.POST or None)
     output = None
@@ -131,7 +133,7 @@ def code_editor(request):
     return render(request, 'base/code-editor.html', {'form': form})
 
 
-
+@login_required(login_url='login')
 def save_code(request):
     if request.method == 'POST':
         form = CodeSnippetForm(request.POST)
@@ -153,7 +155,7 @@ def google_meet_auth(request):
 
     return redirect(auth_url)
 
-
+@login_required(login_url='login')
 def google_meet_callback(request):
     # Get authorization code from request
     code = request.GET.get('code')
@@ -303,11 +305,32 @@ def activityPage(request):
 
 
 
+# def repo(request):
+#     documents = Document.objects.all()
+#     # notes = Note.objects.all()
+#     file_extensions = [document.file.name.split('.')[-1].lower() for document in documents]
+#     return render(request, 'base/repo.html', {'documents': documents, 'file_extensions': file_extensions})
+
+# def add_document(request):
+#     if request.method == 'POST':
+#         form = DocumentForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('repo')
+#     else:
+#         form = DocumentForm()
+#     return render(request, 'base/add_document.html', {'form': form})
+
+# def delete_document(request, document_id):
+#     document = Document.objects.get(id=document_id)
+#     document.delete()
+#     return redirect('repo')
+@login_required(login_url='login')
 def repo(request):
     documents = Document.objects.all()
-    # notes = Note.objects.all()
     return render(request, 'base/repo.html', {'documents': documents})
 
+@login_required(login_url='login')
 def add_document(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
@@ -318,6 +341,7 @@ def add_document(request):
         form = DocumentForm()
     return render(request, 'base/add_document.html', {'form': form})
 
+@login_required(login_url='login')
 def delete_document(request, document_id):
     document = Document.objects.get(id=document_id)
     document.delete()

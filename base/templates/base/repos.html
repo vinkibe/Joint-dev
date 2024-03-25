@@ -8,50 +8,6 @@
     <title>Repository</title>
     <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
     <link rel="stylesheet" href="{% static 'styles/repo.css' %}">
-
-    <style>
-        /* Add custom CSS to resize the PDF icon and adjust layout */
-        
-        .document-container {
-            width: calc(12.5% - 10px);
-            /* 100% / 8 documents per row - spacing */
-            height: 2cm;
-            /* Adjust as needed */
-            /* border: 1px solid #ccc; */
-            /* Optional: Add border for better visualization */
-            padding: 5px;
-            /* Optional: Add padding for better spacing */
-            margin-right: 10px;
-            /* Optional: Add margin between document containers */
-            margin-bottom: 10px;
-            /* Optional: Add margin between document containers */
-            display: inline-block;
-            /* Ensure each container appears in a row */
-            vertical-align: top;
-            /* Align containers at the top of the row */
-            box-sizing: border-box;
-            /* Include padding and border in the width */
-        }
-        
-        .pdf-icon {
-            width: 1cm;
-            /* Adjust as needed */
-            height: 1cm;
-            /* Adjust as needed */
-            margin-right: 5px;
-            /* Optional: Add margin between icon and document name */
-        }
-        
-        .document-details {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        
-        .download-button {
-            margin-top: 5px;
-            /* Optional: Add margin between document name and download button */
-        }
-    </style>
 </head>
 
 <body>
@@ -118,31 +74,24 @@
         </div>
     </header>
     <button onclick="addDocument()" class="btn btn--main btn--pill" style="float:right;">Add Document</button>
-    <h1 style="padding-top: 30px; text-align: center;">Document Library</h1>
+    <h1 style="padding-top: 30px; text-align: center;">Document Library
+    </h1>
 
-    <div class="documents">
+    <div class=" documents ">
         {% for document in documents %}
-        <div class="document-container">
-            <div class="document-details">
-                {% if document.file %}
-                <img src="{% static 'images/pdf_icon.png' %}" alt="PDF Icon" class="pdf-icon">
-                <!-- Use appropriate image or FontAwesome icon -->
-                {% endif %}
-                <h2><a href="{{ document.file.url }}" target="_blank">{{ document.title }}</a></h2>
-            </div>
-            <!-- <div class="download-button">
-                {% if document.file %}
-                <a href="{{ document.file.url }}">Download</a> {% endif %}
-            </div> -->
-            <form method="post" action="{% url 'delete_document' document.id %}">
+        <div class="document ">
+            <h2><a href="{{ document.file.url }}" target="_blank">{{ document.title }}</a></h2>
+            {% if document.file %}
+            <a href="{{ document.file.url }} ">Download</a> {% endif %}
+            <form method="post " action="{% url 'delete_document' document.id %} ">
                 {% csrf_token %}
-                <button type="submit" class="btn btn--main btn--pill">Delete</button>
+                <button type="submit " class="btn btn--main btn--pill">Delete</button>
             </form>
         </div>
         {% endfor %}
     </div>
-    <script src="{% static 'js/repo.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/repo.js' %} "></script>
+    <script src="{% static 'js/script.js' %} "></script>
 </body>
 
 </html>
